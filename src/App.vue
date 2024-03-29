@@ -1,3 +1,7 @@
 <template>
-  <h1>this is App.vue</h1>
+  <TheNavbar />
 </template>
+
+<script setup lang="ts">
+import TheNavbar from "./components/layout/TheNavbar.vue";
+</script>

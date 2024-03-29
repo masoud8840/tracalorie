@@ -1,6 +1,73 @@
+$text-dark: #31363f;
+$text-light: #fafafa;
+$green: #008000;
+$orange: #ffa500;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font: 400 14px "Poppins", "sans-serif";
+  line-height: 21px;
+  color: $text-dark;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  padding: 15px 0;
+  background-color: $green;
+  nav {
+    display: flex;
+    justify-content: space-between;
+    .brand {
+      font-size: 36px;
+      line-height: 54px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: $text-light;
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      li {
+        a {
+          border-radius: 4px;
+          color: $text-light;
+        }
+        button {
+          color: rgba($color: $text-light, $alpha: 0.75);
+          &:hover {
+            color: $text-light;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Globals
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+.btn {
+  display: flex;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+}
+.btn-primary {
+  padding: 10px 15px;
+}
+.btn-orange {
+  background-color: $orange;
 }
