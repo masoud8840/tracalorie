@@ -1,7 +1,7 @@
 <template>
   <main class="signup_view containe r">
     <FormBase
-      :fields="signupFormInputs"
+      :fields="loginFormInputs"
       @on-submit="handleLogin"
       button-label="Login To Account"
     />
@@ -13,7 +13,7 @@ import { ref } from "vue";
 import FormBase from "../components/UI/FormBase.vue";
 import type { IInputShape } from "../types.ts";
 
-const signupFormInputs = ref<IInputShape[]>([
+const loginFormInputs = ref<IInputShape[]>([
   {
     name: "email",
   },

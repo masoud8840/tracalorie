@@ -1,5 +1,5 @@
 <template>
-  <form class="form_base" @submit.prevent="handleSubmit">
+  <form class="form_base" @submit.prevent="handleSubmit" autocomplete="off">
     <section
       class="input_group"
       v-for="(input, index) in props.fields"
@@ -15,14 +15,14 @@
     </section>
 
     <slot name="extras"></slot>
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" :class="`btn btn-primary ${calculateThemeValue}`">
       {{ props.buttonLabel }}
     </button>
   </form>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import type { IInputShape } from "../../types.ts";
 
 interface IEmitShape {
@@ -34,22 +34,24 @@ const emits = defineEmits<IEmitShape>();
 interface IPropShape {
   fields: IInputShape[];
   buttonLabel?: string;
+  theme?: string;
 }
 
 const props = withDefaults(defineProps<IPropShape>(), {
-  fields: () => [
-    {
-      name: "email",
-    },
-    {
-      name: "password",
-    },
-  ],
+  fields: () => [],
   buttonLabel: "Create Account",
+  theme: "",
 });
 
 const inputsValue = ref<string[]>([]);
 function handleSubmit() {
   emits("onSubmit", inputsValue.value);
 }
+
+const calculateThemeValue = computed(() => {
+  if (props.theme === "orange") return "btn-orange";
+  if (props.theme === "green") return "btn-green";
+
+  return "";
+});
 </script>

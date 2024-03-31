@@ -3,4 +3,16 @@ interface IInputShape {
   type?: string;
   label?: string;
 }
-export type { IInputShape };
+
+interface IListItemShape {
+  name: string;
+  calorie: number;
+}
+
+interface IListBaseProps {
+  listTitle: string;
+  theme: string;
+  buttonLabel: string;
+  listItems: IListItemShape[];
+}
+export type { IInputShape, IListItemShape, IListBaseProps };

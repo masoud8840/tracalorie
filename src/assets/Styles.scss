@@ -14,13 +14,14 @@ body {
 }
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
 header {
   padding: 15px 0;
   background-color: $green;
+  box-shadow: 2px 0 25px rgba($color: $text-dark, $alpha: 0.5);
   nav {
     display: flex;
     justify-content: space-between;
@@ -68,44 +69,289 @@ a {
 .btn-primary {
   padding: 10px 15px;
   border-radius: 8px;
+  background-color: $orange;
+  &:hover {
+    background-color: rgba($color: $orange, $alpha: 0.75);
+  }
 }
 .btn-orange {
   background-color: $orange;
+  &:hover {
+    background-color: rgba($color: $orange, $alpha: 0.75);
+  }
+}
+.btn-green {
+  background-color: $green;
+  &:hover {
+    background-color: rgba($color: $green, $alpha: 0.75);
+  }
 }
 
 input {
   border: 0;
   background-color: #e9e9e9;
-  padding: 15px;
+  padding: 12px 15px;
   outline: 0;
   border-radius: 8px;
 }
 
 // VIEWS
+// Home
+.home_view {
+  padding-top: 50px;
+  .home_view-header_grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+    section {
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 2px 4px 10px -4px rgba($color: $text-dark, $alpha: 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &.primary {
+        span,
+        h3 {
+          color: $text-light;
+        }
+        span {
+          @include Text(600, 36px, 54px);
+        }
+        h3 {
+          @include Text(500, 22px, 33px);
+        }
+      }
+      &.header_grid-daily_limit {
+        background-color: $text-dark;
+        grid-column: 1/7;
+      }
+      &.header_grid-gain_loss {
+        background-color: $green;
+        grid-column: 7/13;
+      }
+
+      &.secondary {
+        background-color: $text-light;
+        span {
+          @include Text(600, 28px, 42px);
+        }
+        h3 {
+          @include Text(500, 18px, 27px);
+        }
+      }
+      &.header_grid-calories_consumed {
+        grid-column: 1/5;
+      }
+      &.header_grid-calories_burned {
+        grid-column: 5/9;
+      }
+      &.header_grid-calories_remaining {
+        grid-column: 9/13;
+      }
+    }
+  }
+  .progress_container {
+    margin-block: 30px;
+    progress {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      height: 15px;
+      &::-webkit-progress-bar {
+        border-radius: 25px;
+        background-color: $text-light;
+      }
+
+      &::-webkit-progress-value {
+        background-color: $green;
+        border-radius: 25px;
+      }
+    }
+  }
+
+  .meals_workouts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
 // Signup
 .signup_view {
   padding-top: 50px;
 }
+
 // COMPONENTS
+// ItemBase
+.item_base {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  h5,
+  span {
+    font-weight: 500;
+  }
+
+  .item_base-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+
+    transform: translateY(-100%);
+    transition: transform 0.25s;
+    .item_base-actions,
+    .item_base-delete_confirm {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      height: 100%;
+      padding-inline: 25px;
+    }
+    .item_base-delete_confirm {
+      justify-content: space-between;
+      div {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+    }
+    .item_base-edit_confirm {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      .edit_input {
+        width: 100%;
+        color: $text-light;
+        padding-right: 70px;
+      }
+      button {
+        position: absolute;
+        right: 25px;
+      }
+    }
+    p,
+    button {
+      font-weight: 500;
+      color: $text-light;
+    }
+    button {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &:hover .item_base-overlay {
+    transform: translateY(0);
+  }
+}
+
+// ListBase
+.list_base {
+  .list_base-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0 5px 15px;
+    margin-block: 15px;
+    h3 {
+      @include Text(600, 18px, 27px);
+    }
+    button {
+      font-weight: 500;
+      color: $text-light;
+      padding: 10px 15px;
+      border-radius: 4px;
+    }
+  }
+
+  .search_input {
+    background-color: $text-light;
+    width: 100%;
+  }
+  &.theme-green {
+    .item_base {
+      border: 1px solid rgba($color: $green, $alpha: 0.25);
+      padding: 15px;
+      border-radius: 8px;
+      span {
+        color: $green;
+      }
+      .item_base-overlay {
+        background-color: rgba($color: $green, $alpha: 0.9);
+      }
+    }
+    .list_base-header {
+      border-left: 3px solid $green;
+    }
+
+    .item_base-edit_confirm {
+      .edit_input {
+        background-color: rgba($color: $green, $alpha: 0);
+      }
+    }
+  }
+  &.theme-orange {
+    .item_base {
+      border: 1px solid rgba($color: $orange, $alpha: 0.25);
+      padding: 15px;
+      border-radius: 8px;
+      span {
+        color: $orange;
+      }
+
+      .item_base-overlay {
+        background-color: rgba($color: $orange, $alpha: 0.9);
+      }
+    }
+
+    .list_base-header {
+      border-left: 3px solid $orange;
+    }
+
+    .item_base-edit_confirm {
+      .edit_input {
+        background-color: rgba($color: $orange, $alpha: 0);
+      }
+    }
+  }
+}
+
+// DialogBase
+.dialog_base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background-color: rgba($color: $text-dark, $alpha: 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 // FormBase
 .form_base {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
   background-color: $text-light;
-  padding: 25px;
+  padding: 30px;
   border-radius: 16px;
   box-shadow: 2px 8px 25px -5px rgba($color: $text-dark, $alpha: 0.05);
 
   button {
-    display: flex;
     margin-left: auto;
-    // @include Text(500, 16px, 24px);
     font-weight: 500;
-    &:hover {
-      background-color: $orange;
-      color: $text-light;
-    }
+    color: $text-light;
   }
   .input_group {
     display: flex;
@@ -117,4 +363,28 @@ input {
       text-transform: capitalize;
     }
   }
+}
+
+// animations
+.dialog-enter-active,
+.dialog-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.dialog-leave-to,
+.dialog-enter-from {
+  opacity: 0;
+}
+.dialog-leave-to form {
+  transition: all 0.5s;
+  transform: scale(0.7);
+}
+
+.dialog-enter-from form {
+  opacity: 0;
+  transform: scale(1.3);
+}
+.dialog-enter-to form {
+  transition: all 0.5s;
+  // animation: FadeIn 0.5s linear;
 }
