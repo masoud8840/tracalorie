@@ -19,33 +19,51 @@ body {
 }
 
 header {
-  padding: 15px 0;
+  padding: 15px 15px;
   background-color: $green;
   box-shadow: 2px 0 25px rgba($color: $text-dark, $alpha: 0.5);
+  position: fixed;
+  width: 100%;
+  top: 0;
   nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    position: relative;
     .brand {
       font-size: 36px;
       line-height: 54px;
       font-weight: 600;
       letter-spacing: 1px;
       color: $text-light;
+      display: flex;
+      align-items: center;
     }
 
     ul {
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 15px;
+      position: absolute;
+      top: calc(100% + 15px);
+      width: 100%;
+      background-color: #fafafa;
+      padding: 15px;
       li {
+        width: 100%;
+        border-radius: 4px;
         a {
-          border-radius: 4px;
-          color: $text-light;
+          color: $text-dark;
+          display: flex;
+          justify-content: center;
         }
         button {
-          color: rgba($color: $text-light, $alpha: 0.75);
+          width: 100%;
+          height: 100%;
+          color: $text-dark;
           &:hover {
-            color: $text-light;
+            color: $orange;
           }
         }
       }
@@ -65,11 +83,13 @@ a {
   cursor: pointer;
   background-color: transparent;
   border: 0;
+  white-space: nowrap;
 }
 .btn-primary {
   padding: 10px 15px;
   border-radius: 8px;
   background-color: $orange;
+  color: $text-light;
   &:hover {
     background-color: rgba($color: $orange, $alpha: 0.75);
   }
@@ -98,11 +118,10 @@ input {
 // VIEWS
 // Home
 .home_view {
-  padding-top: 50px;
   .home_view-header_grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+
+    grid-template-columns: repeat(1, 1fr);
     gap: 15px;
     section {
       border-radius: 8px;
@@ -118,19 +137,17 @@ input {
           color: $text-light;
         }
         span {
-          @include Text(600, 36px, 54px);
+          @include Text(600, 28px, 42px);
         }
         h3 {
-          @include Text(500, 22px, 33px);
+          @include Text(500, 18px, 27px);
         }
       }
       &.header_grid-daily_limit {
         background-color: $text-dark;
-        grid-column: 1/7;
       }
       &.header_grid-gain_loss {
         background-color: $green;
-        grid-column: 7/13;
       }
 
       &.secondary {
@@ -141,15 +158,6 @@ input {
         h3 {
           @include Text(500, 18px, 27px);
         }
-      }
-      &.header_grid-calories_consumed {
-        grid-column: 1/5;
-      }
-      &.header_grid-calories_burned {
-        grid-column: 5/9;
-      }
-      &.header_grid-calories_remaining {
-        grid-column: 9/13;
       }
     }
   }
@@ -174,14 +182,16 @@ input {
 
   .meals_workouts {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 30px;
   }
 }
 
 // Signup
-.signup_view {
-  padding-top: 50px;
+.signup_view,
+.home_view {
+  padding-top: 125px;
+  padding-inline: 15px;
 }
 
 // COMPONENTS
@@ -337,6 +347,7 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-inline: 15px;
 }
 // FormBase
 .form_base {
@@ -386,5 +397,115 @@ input {
 }
 .dialog-enter-to form {
   transition: all 0.5s;
-  // animation: FadeIn 0.5s linear;
+}
+
+// MEDIA QUERY
+@media (width > 576px) {
+  header {
+    nav {
+      ul {
+        position: static;
+        background-color: transparent;
+        flex-direction: row;
+        width: fit-content;
+        li {
+          button {
+            color: rgba($color: $text-light, $alpha: 0.75);
+            &:hover {
+              color: $text-light;
+            }
+          }
+        }
+      }
+    }
+  }
+  .home_view {
+    .home_view-header_grid {
+      section {
+        &.primary {
+          span {
+            @include Text(600, 36px, 54px);
+          }
+          h3 {
+            @include Text(500, 22px, 33px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width > 600px) {
+  .dialog_base {
+    padding-inline: 0;
+  }
+}
+@media (width > 1600px) {
+  .signup_view,
+  .home_view,
+  header {
+    padding-inline: 0;
+  }
+}
+
+@media (width > 967px) {
+  .home_view {
+    .home_view-header_grid {
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      section {
+        &.primary {
+          span,
+          h3 {
+            color: $text-light;
+          }
+          span {
+            @include Text(600, 28px, 42px);
+          }
+          h3 {
+            @include Text(500, 18px, 27px);
+          }
+        }
+
+        &.header_grid-daily_limit {
+          background-color: $text-dark;
+          grid-column: 1/7;
+        }
+        &.header_grid-gain_loss {
+          background-color: $green;
+          grid-column: 7/13;
+        }
+        &.header_grid-calories_consumed {
+          grid-column: 1/5;
+        }
+        &.header_grid-calories_burned {
+          grid-column: 5/9;
+        }
+        &.header_grid-calories_remaining {
+          grid-column: 9/13;
+        }
+      }
+    }
+    .meals_workouts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+  }
+}
+@media (width > 1200px) {
+  .home_view {
+    .home_view-header_grid {
+      section {
+        &.primary {
+          span {
+            @include Text(600, 36px, 54px);
+          }
+          h3 {
+            @include Text(500, 22px, 33px);
+          }
+        }
+      }
+    }
+  }
 }
