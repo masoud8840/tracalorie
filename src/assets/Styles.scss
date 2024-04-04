@@ -17,14 +17,22 @@ body {
   max-width: 1600px;
   margin: 0 auto;
 }
+.loading_screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
 
 header {
-  padding: 15px 15px;
   background-color: $green;
   box-shadow: 2px 0 25px rgba($color: $text-dark, $alpha: 0.5);
   position: fixed;
   width: 100%;
   top: 0;
+  display: flex;
+  align-items: center;
+  min-height: 85px;
   nav {
     display: flex;
     justify-content: space-between;
@@ -234,13 +242,16 @@ input {
       }
     }
     .item_base-edit_confirm {
-      display: flex;
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
       align-items: center;
       height: 100%;
       .edit_input {
         width: 100%;
         color: $text-light;
-        padding-right: 70px;
+        &:nth-child(2) {
+          padding-right: 70px;
+        }
       }
       button {
         position: absolute;
@@ -271,8 +282,18 @@ input {
     align-items: center;
     padding: 5px 0 5px 15px;
     margin-block: 15px;
-    h3 {
-      @include Text(600, 18px, 27px);
+    .list_base-header_title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      h3 {
+        @include Text(600, 18px, 27px);
+      }
+      span {
+        @include Text(400, 12px, 18px);
+        color: rgba($color: $text-dark, $alpha: 0.5);
+      }
     }
     button {
       font-weight: 500;
@@ -282,6 +303,11 @@ input {
     }
   }
 
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
   .search_input {
     background-color: $text-light;
     width: 100%;
@@ -372,6 +398,16 @@ input {
     label {
       font-weight: 500;
       text-transform: capitalize;
+    }
+  }
+
+  .error-msg {
+    font-weight: 500;
+    &.msg-error {
+      color: $red;
+    }
+    &.msg-info {
+      color: $green;
     }
   }
 }
