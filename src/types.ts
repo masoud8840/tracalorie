@@ -1,5 +1,3 @@
-import { ComputedRef } from "vue";
-
 interface IInputShape {
   name: string;
   type?: string;

@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import axiosIns from "../axios/instance";
 import { AxiosResponse } from "axios";
 import { computed, ref } from "vue";
-import { useRouter } from "vue-router";
 
 interface ILoginResponse {
   success: boolean;
